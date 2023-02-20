@@ -20,7 +20,9 @@
 package thrift
 
 import (
+	"bufio"
 	"context"
+	"fmt"
 	"net"
 	"time"
 )
@@ -219,7 +221,10 @@ func (p *TSocket) Write(buf []byte) (int, error) {
 		return 0, NewTTransportException(NOT_OPEN, "Connection not open")
 	}
 	p.pushDeadline(false, true)
-	return p.conn.Write(buf)
+	writer := bufio.NewWriter(p.conn)
+	fmt.Println("wwwwwwwwwww")
+	return writer.Write(buf)
+	//return p.conn.Write(buf)
 }
 
 func (p *TSocket) Flush(ctx context.Context) error {
